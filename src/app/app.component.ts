@@ -41,7 +41,7 @@ export class AppComponent implements OnInit {
   }
 
 
-   isPalindrome(p: Palind ): boolean {
+   static isPalindrome(p: Palind ): boolean {
     if ( p.label.split('').reverse().join('') === p.label) {
       return true;
     } else {
