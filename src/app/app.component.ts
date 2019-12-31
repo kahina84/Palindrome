@@ -21,21 +21,24 @@ export class AppComponent implements OnInit {
 
 
   constructor(private palinservice: PalinService) {
+    this.palinMock = this.palinservice.getPalinMock();
   }
 
 
   ngOnInit() {
-    this.palinMock = this.palinservice.getPalinMock();
+
     this.palinservice.getPalin().subscribe(
       data => {
+        this.palindromes = data;
         console.log(data);
       },
       err => {
         console.log(err);
       }
+
     );
-    window.alert('on est la avec ' + this.palindromes);
-}
+    window.alert("on est la avec "+this.palindromes);
+  }
 
 
    isPalindrome(p: Palind ): boolean {

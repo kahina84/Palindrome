@@ -5,11 +5,12 @@ import { HttpHeaders } from '@angular/common/http';
 import { catchError, tap, map  } from 'rxjs/operators';
 import { HttpClientModule } from '@angular/common/http';
 import { Palind } from './palind';
+import 'rxjs/add/operator/map';
 
 const apiUrl = 'https://www.linktogo.fr/assets/json/fluxpalindrome.json';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'c31z' })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
 @Injectable({
@@ -41,11 +42,9 @@ export class PalinService {
     return body || {};
   }
 
-  getPalin(): Observable<any> {
-    return this.http.get('https://cors-anywhere.herokuapp.com/' + apiUrl, httpOptions).pipe(
-      map(this.extractData),
-      catchError(this.handleError)
-    );
+  getPalin() {
+    return this.http.get<Palind[]>('https://cors-anywhere.herokuapp.com/' + apiUrl, httpOptions)
+    .map((res) => this.palin = res);
 }
 
   private handleError(error: HttpErrorResponse) {
